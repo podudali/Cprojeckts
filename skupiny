@@ -1,0 +1,100 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication11
+{
+    internal class Program
+    {
+        private static int min1 = 0;
+
+        private static int max1 = 0;
+
+        private static int min2 = 0;
+
+        private static int max2 = 0;
+
+        private static int pocet1 = -1;
+
+        private static int pocet2 = -1;
+
+        private static void Klasifikuj(int cislo)
+        {
+            if (cislo >= min1 && cislo <= max1)
+            {
+                pocet1++;
+            }
+            if (cislo >= min2 && cislo <= max2)
+            {
+                pocet2++;
+            }
+        }
+
+        private static void Zadat()
+        {
+            Console.WriteLine("Zadejte minimum pro prvni skupinu");
+            min1 = int.Parse(Console.ReadLine());
+            Console.WriteLine("Zadejte maximum pro prvni skupinu");
+            max1 = int.Parse(Console.ReadLine());
+            Console.WriteLine("Zadejte minimum pro druhou skupinu");
+            min2 = int.Parse(Console.ReadLine());
+            Console.WriteLine("Zadejte maximum pro druhou skupinu");
+            max2 = int.Parse(Console.ReadLine());
+            pocet1 = 0;
+            pocet2 = 0;
+        }
+
+        private static void Vysledky()
+        {
+            Console.WriteLine("Pocet cisel mezi {0} a {1} je {2}\nPocet cisel mezi {3} a {4} je {5}\n\nStisknete klavesu.", min1, max1, pocet1, min2, max2, pocet2);
+            Console.ReadKey();
+        }
+
+        private static void Vstup()
+        {
+            pocet1 = 0;
+            pocet2 = 0;
+            int num;
+            do
+            {
+                Console.WriteLine("Zadejte cislo (0 pro ukonceni)");
+                num = int.Parse(Console.ReadLine());
+                Klasifikuj(num);
+            }
+            while (num != 0);
+        }
+
+        private static void Main(string[] args)
+        {
+            char c = 'A';
+            while (c == 'A')
+            {
+                Console.Clear();
+                if (pocet1 == -1)
+                {
+                    Zadat();
+                }
+                Console.WriteLine("1..Zadat rozmezi skupin\n2..Zadat serii cisel\n3..Zobrazit vysledky\n\nk..Konec");
+                c = Console.ReadKey().KeyChar;
+                switch (c)
+                {
+                    case '1':
+                        Zadat();
+                        break;
+                    case '2':
+                        Vstup();
+                        break;
+                    case '3':
+                        Vysledky();
+                        break;
+                }
+                if (c != 'k')
+                {
+                    c = 'A';
+                }
+            }
+        }
+    }
+}
