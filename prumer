@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace prumer
+{
+    class Program
+    {
+        static void Zpracuj(int min, int max)
+        {
+            int soucet = 0, pocet = 0;
+            int cislo;
+            do
+            {
+                do
+                {
+                    Console.WriteLine("Zadejte {0}. cislo (zadejte 0 pro ukonceni) ", ++pocet);
+                } while (!(int.TryParse(Console.ReadLine(), out cislo)));
+                if (cislo >= min || cislo <= max)
+                {
+                    soucet = soucet + cislo;
+                }
+
+            } while (cislo != 0);
+            if (pocet == 0)
+            {
+                Console.WriteLine("Nebylo zadane zadne cislo v rozmezi {0}-{1}. Nelze spocitat prumer.", min, max);
+            }
+            else
+                Console.WriteLine("Prumer zadanych cisel v rozmezi {0}-{1} je {2}", min, max, (double)soucet / (pocet-1));
+        }
+        static void NastavRozpeti(ref int min, ref int max)
+        {
+            do { Console.WriteLine("Zadejte dolni hranici"); }
+            while (!int.TryParse(Console.ReadLine(), out min));
+            do { Console.WriteLine("Zadejte horni hranici"); }
+            while (!int.TryParse(Console.ReadLine(), out max));
+        }
+        static void Main(string[] args)
+        {
+            char volba = '0';
+            int min = 0, max = 0;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Program hleda prumer cisel v zadanem rozmezi\n1..Zadat hranice\n2..Vyhodnotit cisla\n------------------------\n9..Konec");
+                volba = Console.ReadKey().KeyChar;
+                if (volba == '1' || volba == '+') NastavRozpeti(ref min, ref max);
+                if (volba == '2' || volba == 'ì')
+                {
+                    Zpracuj(min, max);
+                    Console.ReadLine();
+                }
+            } while (volba != 9);
+        }
+    }
+}
