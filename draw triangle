@@ -1,0 +1,126 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    internal class Program
+    {
+        private struct TBod
+        {
+            public int x;
+
+            public int y;
+        }
+
+        private static void Kresli(TBod start, TBod konec, char znak)
+        {
+            if (konec.x >= start.x)
+            {
+                for (int i = start.x; i <= konec.x; i++)
+                {
+                    Console.SetCursorPosition(i, start.y);
+                    Console.Write(znak);
+                    Console.SetCursorPosition(i, konec.y);
+                    Console.Write(znak);
+                }
+            }
+            else
+            {
+                for (int num = start.x; num >= konec.x; num--)
+                {
+                    Console.SetCursorPosition(num, start.y);
+                    Console.Write(znak);
+                    Console.SetCursorPosition(num, konec.y);
+                    Console.Write(znak);
+                }
+            }
+            if (konec.y >= start.y)
+            {
+                for (int j = start.y; j <= konec.y; j++)
+                {
+                    Console.SetCursorPosition(start.x, j);
+                    Console.Write(znak);
+                    Console.SetCursorPosition(konec.x, j);
+                    Console.Write(znak);
+                }
+            }
+            else
+            {
+                for (int num2 = start.y; num2 >= konec.y; num2--)
+                {
+                    Console.SetCursorPosition(start.x, num2);
+                    Console.Write(znak);
+                    Console.SetCursorPosition(konec.x, num2);
+                    Console.Write(znak);
+                }
+            }
+        }
+
+        private static void Klavesa(ref TBod start, ref TBod konec, char klavesa)
+        {
+            Kresli(start, konec, ' ');
+            if (klavesa == '2')
+            {
+                konec.y++;
+                if (konec.y >= Console.WindowHeight - 1)
+                {
+                    konec.y = 1;
+                }
+            }
+            if (klavesa == '6')
+            {
+                konec.x++;
+                if (konec.x >= Console.WindowWidth - 1)
+                {
+                    konec.x = 1;
+                }
+            }
+            if (klavesa == '4')
+            {
+                konec.x--;
+                if (konec.x < 1)
+                {
+                    konec.x = Console.WindowWidth - 2;
+                }
+            }
+            if (klavesa == '8')
+            {
+                konec.y--;
+                if (konec.y < 1)
+                {
+                    konec.y = Console.WindowHeight - 2;
+                }
+            }
+            if (klavesa == 's')
+            {
+                start = konec;
+            }
+            Kresli(start, konec, '*');
+            Console.SetCursorPosition(konec.x, konec.y);
+        }
+
+        private static void Main(string[] args)
+        {
+            char c = 'a';
+            TBod start = default(TBod);
+            start.x = 5;
+            start.y = 5;
+            TBod konec = default(TBod);
+            konec.x = 5;
+            konec.y = 5;
+            Console.WriteLine("Tento program kresli obdelnik z pocatecniho bodu do aktualni pozice kurzoru. \nPro nastaveni startu stisknete klavesu s\nPohyb klavesami 2 8 4 6\nEsc=konec");
+            Console.SetCursorPosition(konec.x, konec.y);
+            while (c != '\u001b')
+            {
+                c = Console.ReadKey(true).KeyChar;
+                if (c != '\u001b')
+                {
+                    Klavesa(ref start, ref konec, c);
+                }
+            }
+        }
+    }
+}
