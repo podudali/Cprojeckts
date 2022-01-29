@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication11
+{
+    class Program
+    {
+        static void NactiText(ref string txt)
+        {
+            Console.WriteLine("Zadejte vstupni text:");
+            txt = Console.ReadLine();
+        }
+
+
+        static bool JeCislice(char z)
+        {
+            return z >= '0' && z <= '9';
+        }
+        static void Zpracuj(string txt)
+        {
+            char z = ' ';
+            int num = 0;
+            for (int i = 0; i < txt.Length; i++)
+            {
+                if (!JeCislice(z) && JeCislice(txt[i]))
+                {
+                    num++;
+                }
+                z = txt[i];
+            }
+            Console.WriteLine("Pocet celych cisel ve vete {0} je {1}", txt, num);
+        }
+
+        static void Main(string[] args)
+        {
+            char c = '0';
+            string txt = "";
+            do
+            {
+                Console.Clear();
+                if (c == '1' || c == '0')
+                {
+                    NactiText(ref txt);
+                }
+                if (c == '2' || c == '0')
+                {
+                    Zpracuj(txt);
+                }
+                Console.WriteLine("Program pocita pocet celych cisel v zadani. Napr. asdfsafd45.98asd je vysledek 2.\n\n1..Zadat vstupni text\n2..Zpracovat\n----------------\n9..Konec");
+                c = Console.ReadKey().KeyChar;
+            }
+            while (c != '9');
+        }
+    }
+}
