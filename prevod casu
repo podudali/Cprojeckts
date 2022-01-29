@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = "ahoj";
+            Console.WriteLine(a);
+            Console.WriteLine("zadejte hodiny minuty sekundy");
+            double hodiny, minuty, sekundy = 0;
+            double.TryParse(Console.ReadLine(), out hodiny);
+            double.TryParse(Console.ReadLine(), out minuty);
+            double.TryParse(Console.ReadLine(), out sekundy);
+
+            Console.WriteLine("pøevést na? 1)hodiny 2)minuty 3)sekundy");
+            int odpoved = 0;
+            int.TryParse(Console.ReadLine(), out odpoved);
+            double pomoc = 0;
+            switch (odpoved)
+            {
+                case 1:
+                    pomoc = hodiny + minuty / 60 + sekundy / 3600;
+                    break;
+                case 2:
+                    pomoc = hodiny * 60 + minuty + sekundy / 60;
+                    break;
+                case 3:pomoc = hodiny  3600 + minuty  60 + sekundy;
+                    break;
+
+            }
+            Console.WriteLine(pomoc);
+            Console.ReadKey();
+
+        }
+    }
+}
