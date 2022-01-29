@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication14
+{
+    class Program
+    {
+        public static int NactiCislo()
+        {
+            int cislo;
+            bool prvni = true;
+            do
+            {
+                if (!prvni)
+                {
+                    Console.WriteLine("Chybny vstup");
+                }
+                prvni = false;
+                Console.WriteLine("Zadejte cele cislo");
+            } while (!(int.TryParse(Console.ReadLine(), out cislo)));
+            return cislo;
+        }
+        static void TestujRadu()
+        {
+            int pred = 0;
+            int pomoc = 0;
+            bool neprerusena = false;
+            Console.WriteLine("Tento program testuje, zda je zadana rostouci rada prerusena (napr. 5 6 7 8 9 je neprerusena, rada 3 4 5 8 9 je prerusena.\nPro ukonceni rady zadejte 0.");
+            do
+            {
+                pomoc = NactiCislo();
+                if (pred + 1 == pomoc)
+                {
+                    neprerusena = true;
+                    pred = pomoc;
+                }
+                else if (pred == 0)
+                {
+                    pred = pomoc;
+                }
+                else if (pomoc != 0)
+                {
+                    neprerusena = false;
+
+                }
+            } while (pomoc != 0);
+            Console.Write("Ciselna rada je ");
+            if (neprerusena)
+            {
+                Console.Write("neprerusena");
+            }
+            else
+            {
+                Console.WriteLine("prerusena.");
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            int volba = 1;
+            while (volba != 0)
+            {
+                Console.Clear();
+                if (volba == 1) TestujRadu();
+                Console.WriteLine("1..Testovani rady\n------------\n0..Konec");
+                volba = NactiCislo();
+            }
+        }
+    }
+}
