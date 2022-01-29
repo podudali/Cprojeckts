@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+namespace ConsoleApp3
+{
+    class Program
+    {
+        const string nazev = "vstup.txt";
+        static void Zpracuj()
+        {
+            int max = 0;
+            Console.WriteLine("\nNejdelsi slova jsou:");
+            for (int pruchod = 1; pruchod < 3; pruchod++)
+            {
+                using (StreamReader sr = new StreamReader(nazev))
+                {
+                    while (!(sr.EndOfStream))
+                    {
+                        string radek = sr.ReadLine();
+                        if (pruchod == 1 && radek.Length > max) max = radek.Length;
+                        if (pruchod == 2 && radek.Length == max) Console.WriteLine(radek);
+                        
+                    }
+                }
+            }
+        }
+        static void Zadej()
+        {
+            string vstup = "";
+            Console.WriteLine("Zadejte slova oddelena klavesou Enter. Pro ukonceni stisknete pouze Enter.");
+            using (StreamWriter sw = new StreamWriter(nazev))
+            {
+                do
+                {
+                    vstup = Console.ReadLine();
+                    if (vstup.Length != 0) sw.WriteLine(vstup);
+                }
+                while (vstup.Length > 0);
+                sw.Flush();
+            }
+        }
+        static void Main(string[] args)
+        {
+            char volba = '1';
+            bool FileEx;
+            Console.Clear();
+            while (volba != '0')
+            {
+                FileEx = File.Exists(nazev);
+                if (FileEx)
+                {
+                    Console.WriteLine("1..Zpracovat soubor");
+                }
+                Console.WriteLine("2..Zadat hodnoty do souboru");
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("0..Ukonèit");
+                volba = Console.ReadKey().KeyChar;
+                if (volba == '1' && File.Exists(nazev)) Zpracuj();
+                if (volba == '2') Zadej();
+
+            }
+        }
+    }
+}
